@@ -74,21 +74,27 @@ public class GridHandler : MonoBehaviour
 
     }
 
-    private List<Vector2Int> GetAroundCells(Vector2Int matrixPosition)
+    private HashSet<Vector2Int> GetAroundCells()
     {
-        var positions = new List<Vector2Int>();
-        for (int i = -1; i < 2; i++)
+        var positions = new HashSet<Vector2Int>();
+
+        foreach (var matrixPosition in itensPositions.Keys)
         {
-            if (i + matrixPosition.x < 0 || i + matrixPosition.x >= matrixSize.x) continue;
-
-            for (int j = -1; j < 2; j++)
+            for (int i = -1; i < 2; i++)
             {
-                if (j + matrixPosition.y < 0 || j + matrixPosition.y >= matrixSize.y) continue;
+                if (i + matrixPosition.x < 0 || i + matrixPosition.x >= matrixSize.x) continue;
 
-                positions.Add(new Vector2Int(i + matrixPosition.x, j + matrixPosition.y));
+                for (int j = -1; j < 2; j++)
+                {
+                    if (j + matrixPosition.y < 0 || j + matrixPosition.y >= matrixSize.y) continue;
+
+                    positions.Add(new Vector2Int(i + matrixPosition.x, j + matrixPosition.y));
+                }
             }
-        }
 
+        }
+        
+        
         return positions;
     }
 
@@ -106,8 +112,7 @@ public class GridHandler : MonoBehaviour
 
             for (int j = -1; j < 2; j++)
             {
-                if (j + position.y < 0 || j + position.y >= matrixSize.y || (position.y + j == j && position.x ==
-                    matrixSize.x + i)) continue;
+                if (j + position.y < 0 || j + position.y >= matrixSize.y || (j == 0 && 0 == i)) continue;
                 
                 sum += _gameMatrix[i + position.x, j + position.y] == null ? 0 : 1;
             }
@@ -116,7 +121,8 @@ public class GridHandler : MonoBehaviour
         bool hasItem = ItemInPosition(position) != null;
         
         //Unpopulated Item
-        if(!hasItem && sum == 2) return true;
+        if (!hasItem ) return sum == 3;
+        
 
         if (sum <= 1 || sum > 3)
             return hasItem;
@@ -132,14 +138,16 @@ public class GridHandler : MonoBehaviour
         {
             yield return new WaitUntil(() => runGame);
             List<Vector2Int> positionsToChange = new List<Vector2Int>();
-            foreach (var value in itensPositions)
+            HashSet<Vector2Int> toAnaliseItems = GetAroundCells();
+            
+            print(toAnaliseItems.Count);
+                // toAnaliseItems.a
+            foreach(var cell in toAnaliseItems)
             {
-                foreach(var cell in GetAroundCells(value.Key))
-                {
-                    if(ChangeVerification(cell))
-                        positionsToChange.Add(cell);
-                }
+                if(ChangeVerification(cell))
+                    positionsToChange.Add(cell);
             }
+            
 
             yield return new WaitForSeconds(iterationSpeed);
         

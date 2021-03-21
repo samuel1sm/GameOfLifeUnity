@@ -380,7 +380,7 @@ MonoBehaviour:
   matrixSize: {x: 20, y: 20}
   initialPosition: {x: 0.5, y: 0.5}
   gridItem: {fileID: 460589561356319217, guid: b848810d42ead2b46b3614f4b83886ad, type: 3}
-  iterationSpeed: 1
+  iterationSpeed: 0.5
   runGame: 0
 --- !u!1 &519420028
 GameObject:
