@@ -14,7 +14,8 @@ public class InputController : MonoBehaviour
     private InputManager _input;
     
     public event Action<InputTypes> InputAction = delegate(InputTypes types) {  };
-    
+    public event Action<InputTypes> PauseAction = delegate(InputTypes types) {  };
+
     private void Awake()
     {
         if (!Instance)
@@ -47,6 +48,10 @@ public class InputController : MonoBehaviour
         _input.Player.Click.performed += _ => InputAction(InputTypes.Performed);
         _input.Player.Click.started += _ => InputAction(InputTypes.Started);
         _input.Player.Click.canceled += _ => InputAction(InputTypes.Canceled);
+        
+        _input.Player.PauseGame.performed += _ => PauseAction(InputTypes.Performed);
+        _input.Player.PauseGame.started += _ => PauseAction(InputTypes.Started);
+        _input.Player.PauseGame.canceled += _ => PauseAction(InputTypes.Canceled);
     }
 
     public Vector2 GetInputPosition()
