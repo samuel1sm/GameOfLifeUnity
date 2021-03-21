@@ -380,6 +380,7 @@ MonoBehaviour:
   matrixSize: {x: 40, y: 20}
   initialPosition: {x: 0.5, y: 0.5}
   gridItem: {fileID: 460589561356319217, guid: b848810d42ead2b46b3614f4b83886ad, type: 3}
+  iterationSpeed: 1
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -457,7 +458,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 16.66, y: 9.61, z: -10}
+  m_LocalPosition: {x: 14.18, y: 9.84, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
